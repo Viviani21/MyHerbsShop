@@ -346,3 +346,51 @@ const herbs = [
           herbsContainer.appendChild(card);
       });
   }  
+
+  //------------------------------------------------------Counter-----------------------------------------------
+  // Output field
+const countOutput = document.getElementById("countOutput");
+//Input field
+const userInput = document.getElementById("countInput");
+
+//EventListener an Start Counting Button
+document.getElementById("startButton").addEventListener("click",function(){
+    startCounting();
+});
+
+//Counting 
+function startCounting(){
+ // get Input Value
+    let input = userInput.value
+ //Save the Value in Local Storage
+        localStorage.setItem("lastinput", input);
+// get the Input Value from Local Storage
+    let getInput = localStorage.getItem("lastinput");
+ // added HTML to Counter
+        countOutput.innerHTML = getInput;
+// interval setted of 1000 ms/ 1s
+      timerId = setInterval(()=>count() ,1000);
+// Count Function 
+        function count(){
+// Count down
+            getInput--;
+ // Show counting
+            countOutput.innerHTML =getInput;
+ // End of Counting  
+            if(getInput== 0){
+                clearInterval(timerId);alert('Countdown complete!');
+// leer the Counting Field
+                countOutput.innerHTML = "";
+ // leer the Input Field
+               //userInput.value="";
+            }  
+        }
+}
+
+// Reset  Counting
+document.getElementById("resetButton").addEventListener("click",function(){
+// Stop Counting
+    setTimeout(()=>{ clearInterval(timerId);},100);
+// Output Field leer
+    countOutput.innerHTML = "";
+});
